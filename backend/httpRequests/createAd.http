@@ -1,5 +1,6 @@
 POST http://localhost:3000/ads
 Content-Type: application/json
 {
-  "name": "macbook"
+  "title": "macbook3",
+  "price": 1300
 }

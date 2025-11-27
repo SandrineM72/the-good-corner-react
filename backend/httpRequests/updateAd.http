@@ -1,6 +1,5 @@
 PATCH http://localhost:3000/ads/2
 Content-Type: application/json
 {
-  "price": 15000,
-  "title": "Super Car to sell"
+  "title": "test update 2"
 }
