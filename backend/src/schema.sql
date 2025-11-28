@@ -18,9 +18,14 @@ CREATE TABLE ads (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title VARCHAR(100) NOT NULL,
     price REAL NOT NULL,
+    description TEXT,
+    pictureUrl VARCHAR,
+    createdAt DATE DEFAULT CURRENT_DATE,
+    city VARCHAR NOT NULL,
     category_id INTEGER NOT NULL,
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
+
 
 CREATE TABLE ads_to_tags (
     ad_id INTEGER,
@@ -44,12 +49,12 @@ INSERT INTO tags (name) VALUES
 SELECT * FROM tags;
 
 
-INSERT INTO ads (title, price, category_id) VALUES 
-    ('Vieux jeans troués', 200, 2),
-    ('T-shit hello world', 9.99, 2),
-    ('Chausettes wild code school', 4.49, 2),
-    ('DeLorean DMC-12', 70000, 1),
-    ('R5 pour pièces', 350, 1);
+INSERT INTO ads (title, price, category_id, city) VALUES 
+    ('Vieux jeans troués', 200, 2, 'Paris'),
+    ('T-shit hello world', 9.99, 2, 'Paris'),
+    ('Chausettes wild code school', 4.49, 2, 'Bordeaux'),
+    ('DeLorean DMC-12', 70000, 1, 'Strasbourg'),
+    ('R5 pour pièces', 350, 1, 'Lille');
 
 INSERT INTO ads_to_tags (ad_id, tag_id) VALUES 
     (1, 1),
