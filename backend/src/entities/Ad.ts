@@ -1,9 +1,14 @@
-import { Length, Min } from "class-validator";
+import { IsUrl, Length, Min } from "class-validator";
 import {
   BaseEntity,
   Column, CreateDateColumn, Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn
 } from "typeorm";
+import { Category } from "./Category";
+import { Tag } from "./Tag";
 
 @Entity()
 export class Ad extends BaseEntity {
@@ -19,7 +24,7 @@ export class Ad extends BaseEntity {
   price: number;
 
   @Column({ length: 50 })
-  @Length(2, 50)
+  @Length(1, 50)
   location: string
 
   @Column({ type: 'text', nullable: true })
@@ -27,8 +32,16 @@ export class Ad extends BaseEntity {
 
   @Column()
   @Length(10, 255)
+  @IsUrl()
   pictureUrl: string
 
   @CreateDateColumn()
   createdAt: Date
+
+  @ManyToOne(() => Category)
+  category: Category
+
+  @JoinTable()
+  @ManyToMany(() => Tag)
+  tags: Tag[]
 }
