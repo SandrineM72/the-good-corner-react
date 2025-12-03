@@ -3,6 +3,8 @@ import { validate } from "class-validator";
 import express from "express";
 import db from "./db";
 import { Ad } from "./entities/Ad";
+import { Category } from "./entities/Category";
+import { Tag } from "./entities/Tag";
 
 const app = express();
 
@@ -12,8 +14,28 @@ const port = 4000;
 
 app.get("/ads", async (_req, res) => {
   try {
-    const ads = await Ad.find()
+    const ads = await Ad.find({ relations: { category: true, tags: true } })
     res.send(ads);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+});
+
+app.get("/categories", async (_req, res) => {
+  try {
+    const categories = await Category.find()
+    res.send(categories);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+});
+
+app.get("/tags", async (_req, res) => {
+  try {
+    const tags = await Tag.find()
+    res.send(tags);
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
@@ -27,6 +49,32 @@ app.post("/ads", async (req, res) => {
     if (errors.length > 0) return res.status(422).send({ errors });
     const adWithId = await newAd.save();
     res.send(adWithId);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+});
+
+app.post("/categories", async (req, res) => {
+  try {
+    const newCategory = Category.create(req.body);
+    const errors = await validate(newCategory);
+    if (errors.length > 0) return res.status(422).send({ errors });
+    const categoryWithId = await newCategory.save();
+    res.send(categoryWithId);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+});
+
+app.post("/tags", async (req, res) => {
+  try {
+    const newTag = Tag.create(req.body);
+    const errors = await validate(newTag);
+    if (errors.length > 0) return res.status(422).send({ errors });
+    const tagWithId = await newTag.save();
+    res.send(tagWithId);
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
