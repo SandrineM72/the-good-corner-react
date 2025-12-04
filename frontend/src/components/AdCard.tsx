@@ -1,18 +1,20 @@
+import Link from "next/link";
+import type Ad from "@/types";
 import FavoriteButton from "./FavoriteButton";
 
 interface AdCardProps {
-    ad: {
-        id: number;
-        title: string;
-        price: number;
-        pictureUrl: string;
-    }
+    ad: Ad;
 }
 
 export default function AdCard({
-    ad: {title, price, pictureUrl},
+    ad: {title, price, pictureUrl, id},
 }: AdCardProps) {
 return (
+    <Link 
+        href={`http://localhost:3000/ads/${id}`}
+    className="w-[400px]">
+    
+    
     <div className="w-[400px]">
         <div className="relative shadow-md border rounded-lg p-4 bg-white mr-3 mb-3 cursor-pointer transition-all duration-300 hover:shadow-lg group">
             {/* Couche transparente orangée au hover */}
@@ -32,6 +34,7 @@ return (
             </div>
         </div>
     </div>
+    </Link>
 );;
 
 

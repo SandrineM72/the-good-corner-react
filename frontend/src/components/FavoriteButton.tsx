@@ -28,13 +28,14 @@ const FavoriteButton = ({
     lg: 'w-10 h-10'
   };
 
-  const handleClick = () => {
-    const newState = !isFavorite;
-    setIsFavorite(newState);
-    if (onToggle) {
-      onToggle(newState);
-    }
-  };
+const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const newState = !isFavorite;
+  e.preventDefault();
+  setIsFavorite(newState);
+  if (onToggle) {
+    onToggle(newState);
+  }
+};
 
   return (
     <button
